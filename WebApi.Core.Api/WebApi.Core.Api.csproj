@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Filters" Version="7.0.6" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\WebApi.Core.Common\WebApi.Core.Common.csproj" />
+    <ProjectReference Include="..\WebApi.Core.IService\WebApi.Core.IService.csproj" />
+    <ProjectReference Include="..\WebApi.Core.Service\WebApi.Core.Service.csproj" />
+  </ItemGroup>
+
+</Project>
