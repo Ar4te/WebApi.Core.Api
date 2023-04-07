@@ -1,4 +1,5 @@
 ﻿using SqlSugar;
+using WebApi.Core.Common.Global;
 
 namespace WebApi.Core.IRepository.Base
 {
@@ -48,6 +49,18 @@ namespace WebApi.Core.IRepository.Base
         /// <param name="parameters"></param>
         /// <returns></returns>
         Task<List<TEntity>> QuerySql(string sql, SugarParameter[] parameters = null);
+
+        /// <summary>
+        /// Sql语句分页查询
+        /// </summary>
+        /// <param name="querySqlStr"></param>
+        /// <param name="pageIndex"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="countSqlStr"></param>
+        /// <param name="strOrderByField"></param>
+        /// <param name="parameters"></param>
+        /// <returns></returns>
+        Task<PageModel<TEntity>> QuerySqlPage(string querySqlStr, int pageIndex, int pageSize, string countSqlStr = "", string strOrderByField = "", SugarParameter[] parameters = null);
 
         #endregion
 

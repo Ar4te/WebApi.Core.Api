@@ -1,4 +1,5 @@
 ﻿using SqlSugar;
+using WebApi.Core.Common.Global;
 using WebApi.Core.IRepository.Base;
 using WebApi.Core.Repository.SqlSugar;
 
@@ -51,6 +52,31 @@ namespace WebApi.Core.Repository.Base
         {
             return await Db.Ado.SqlQueryAsync<TEntity>(sql, parameters);
         }
+
+        /// <summary>
+        /// Sql语句分页查询
+        /// </summary>
+        /// <param name="querySqlStr"></param>
+        /// <param name="pageIndex"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="countSqlStr"></param>
+        /// <param name="strOrderByField"></param>
+        /// <param name="parameters"></param>
+        /// <returns></returns>
+        public async Task<PageModel<TEntity>> QuerySqlPage(string querySqlStr, int pageIndex, int pageSize, string countSqlStr = "", string strOrderByField = "", SugarParameter[] parameters = null)
+        {
+            if (string.IsNullOrEmpty(countSqlStr))
+                countSqlStr = $"SELECT COUNT(*) FROM ({querySqlStr}) A";
+
+            if (!string.IsNullOrEmpty(strOrderByField))
+                querySqlStr += $" Order By {strOrderByField}";
+
+            querySqlStr += $" LIMIT {pageIndex - 1},{pageSize}";
+            var data = await Db.Ado.SqlQueryAsync<TEntity>(querySqlStr, parameters);
+            var dataCount = await Db.Ado.SqlQuerySingleAsync<int>(countSqlStr);
+            return new PageModel<TEntity>(pageIndex, pageSize, dataCount, data);
+        }
+
         #endregion
 
         #region Update
