@@ -1,4 +1,5 @@
 ﻿using SqlSugar;
+using System.Linq.Expressions;
 using WebApi.Core.Common.Global;
 using WebApi.Core.IRepository.Base;
 using WebApi.Core.Repository.SqlSugar;
@@ -37,6 +38,10 @@ namespace WebApi.Core.Repository.Base
             return res;
         }
 
+        public async Task<List<TEntity>> Query(Expression<Func<TEntity,bool>> expression)
+        {
+            return await Db.Queryable<TEntity>().Where(expression).ToListAsync();
+        }
         public async Task<TEntity> QueryById(object id)
         {
             return await Db.Queryable<TEntity>().InSingleAsync(id);

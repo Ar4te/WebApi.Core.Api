@@ -10,4 +10,8 @@
     <PackageReference Include="SqlSugarCore" Version="5.1.4.64" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\WebApi.Core.ViewModel\WebApi.Core.ViewModel.csproj" />
+  </ItemGroup>
+
 </Project>

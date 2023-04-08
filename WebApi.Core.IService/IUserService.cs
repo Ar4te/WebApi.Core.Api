@@ -2,14 +2,14 @@
 using WebApi.Core.IRepository.Base;
 using WebApi.Core.IService.Base;
 using WebApi.Core.Model;
+using WebApi.Core.ViewModel;
 
 namespace WebApi.Core.IService
 {
     public interface IUserService : IBaseService<User>
     {
-        Task<MessageModel<bool>> Create(User user);
+        Task<MessageModel<bool>> Create(UserVM user);
         Task<MessageModel<List<User>>> GetAllUsers();
-
-        Task<MessageModel<string>> Login(string userId, string userName);
+        Task<MessageModel<string>> Login(string userName, string password);
     }
 }

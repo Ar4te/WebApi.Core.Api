@@ -1,4 +1,5 @@
 ﻿using SqlSugar;
+using System.Linq.Expressions;
 using WebApi.Core.Common.Global;
 
 namespace WebApi.Core.IRepository.Base
@@ -41,6 +42,13 @@ namespace WebApi.Core.IRepository.Base
         /// </summary>
         /// <returns></returns>
         Task<List<TEntity>> Query();
+
+        /// <summary>
+        /// 通过lambda语句查询
+        /// </summary>
+        /// <param name="expression"></param>
+        /// <returns></returns>
+        Task<List<TEntity>> Query(Expression<Func<TEntity, bool>> expression);
 
         /// <summary>
         /// 原生SQL查询

@@ -4,6 +4,7 @@ using WebApi.Core.Common.Global;
 using WebApi.Core.IService;
 using WebApi.Core.Model;
 using WebApi.Core.Service;
+using WebApi.Core.ViewModel;
 
 namespace WebApi.Core.Api.Controllers
 {
@@ -18,7 +19,7 @@ namespace WebApi.Core.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<MessageModel<bool>> CreateUser([FromForm] User model)
+        public async Task<MessageModel<bool>> CreateUser([FromForm] UserVM model)
         {
             return await _user.Create(model);
         }
@@ -30,9 +31,9 @@ namespace WebApi.Core.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<MessageModel<string>> Login(string userId, string userName)
+        public async Task<MessageModel<string>> Login(string userName, string password)
         {
-            return await _user.Login(userId, userName);
+            return await _user.Login(userName, password);
         }
     }
 }

@@ -1,38 +1,48 @@
-﻿using WebApi.Core.Common.Global;
+﻿using Castle.DynamicProxy.Generators.Emitters.SimpleAST;
+using System.IdentityModel.Tokens.Jwt;
+using System.Linq.Expressions;
+using WebApi.Core.Common.Global;
 using WebApi.Core.Common.Helper;
 using WebApi.Core.IRepository.Base;
 using WebApi.Core.IService;
 using WebApi.Core.Model;
 using WebApi.Core.Service.Base;
+using WebApi.Core.ViewModel;
 
 namespace WebApi.Core.Service
 {
     public class UserService : BaseService<User>, IUserService
     {
-        private readonly IBaseRepository<User> _baseDal;
+        private readonly IBaseRepository<User> _dal;
         public UserService(IBaseRepository<User> baseDal) : base(baseDal)
         {
-            _baseDal = baseDal;
+            _dal = baseDal;
         }
-        public async Task<MessageModel<bool>> Create(User entity)
+        public async Task<MessageModel<bool>> Create(UserVM entity)
         {
-            var res = await _baseDal.Create(entity);
+            var _user = await _dal.Query(r => r.UserName == entity.UserName);
+            if (_user != null && _user.Any()) return MessageModel<bool>.Fail("用户名已被使用");
+            entity.Password = MD5Helper.MD5Encrypt32(entity.Password);
+            var res = await _dal.Create(new User(entity));
             return res ? MessageModel<bool>.Success("操作成功", res) : MessageModel<bool>.Fail("操作失败");
         }
 
         public async Task<MessageModel<List<User>>> GetAllUsers()
         {
-            var res = await _baseDal.Query();
+            var res = await _dal.Query();
             return res != null ? MessageModel<List<User>>.Success("查询成功", res) : MessageModel<List<User>>.Success("系统异常");
         }
 
-        public async Task<MessageModel<string>> Login(string userId, string userName)
+        public async Task<MessageModel<string>> Login(string userName, string password)
         {
-            if (string.IsNullOrEmpty(userId) || string.IsNullOrEmpty(userName)) return MessageModel<string>.Fail("传入参数有误");
+            if (string.IsNullOrEmpty(userName) || string.IsNullOrEmpty(password)) return MessageModel<string>.Fail("传入参数有误");
 
-            var jwtStr = (new JwtHelper(userId, userName)).IssueJwt();
+            var _user = await _dal.Query(r => r.UserName == userName && r.Password == MD5Helper.MD5Encrypt32(password));
+            if (_user is null || _user.Count <= 0) return MessageModel<string>.Fail("登陆失败，请检查用户名和密码");
 
-            return string.IsNullOrEmpty(jwtStr) ? MessageModel<string>.Fail("获取token失败") : MessageModel<string>.Success("", jwtStr);
+            var jwtStr = JwtHelper.IssueJwt(_user[0].UserId.ToString(), userName);
+
+            return string.IsNullOrEmpty(jwtStr) ? MessageModel<string>.Fail("系统异常") : MessageModel<string>.Success("登陆成功", jwtStr);
         }
     }
 }
