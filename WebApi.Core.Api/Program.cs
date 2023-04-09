@@ -3,10 +3,13 @@ using Autofac.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Serilog;
+using SqlSugar;
 using Swashbuckle.AspNetCore.Filters;
 using System.Text;
 using WebApi.Core.Common.Extension;
 using WebApi.Core.Common.Helper;
+using WebApi.Core.Common.Helper.SnowFlake;
 
 namespace WebApi.Core.Api
 {
@@ -15,15 +18,34 @@ namespace WebApi.Core.Api
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+            #region AppSettings
+            builder.Services.AddSingleton(new AppSettings(builder.Configuration));
+            #endregion
 
+            #region SnowFlake
+            builder.Services.AddSingleton(new YittHelper());
+            #endregion
+
+            #region Serilog
+            Log.Logger = new LoggerConfiguration()
+               .ReadFrom.Configuration(builder.Configuration)
+               .CreateLogger();
+            builder.Services.AddLogging(logBuilder =>
+            {
+                logBuilder.ClearProviders();
+                logBuilder.AddSerilog(Log.Logger, dispose: true);
+            });
+            #endregion
+
+            #region Autofac
             builder.Host
                 .UseServiceProviderFactory(new AutofacServiceProviderFactory())
                 .ConfigureContainer<ContainerBuilder>(builder =>
                 {
                     builder.RegisterModule(new AutofacModuleRegister());
-                });
-
-            builder.Services.AddSingleton(new AppSettings(builder.Configuration));
+                })
+                .UseSerilog();
+            #endregion
 
             #region
             //builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(o =>
@@ -85,19 +107,22 @@ namespace WebApi.Core.Api
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
-            //if (app.Environment.IsDevelopment())
-            //{
+            app.UseSerilogRequestLogging();
+
             app.UseSwagger();
             app.UseSwaggerUI();
-            //}
 
             app.UseAuthentication();
             app.UseAuthorization();
 
-
             app.MapControllers();
 
             app.Run();
+        }
+        public class DDD
+        {
+            public string Name { get; set; }
+            public object Args { get; set; }
         }
     }
 }

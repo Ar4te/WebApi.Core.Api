@@ -1,6 +1,4 @@
-﻿using Castle.DynamicProxy.Generators.Emitters.SimpleAST;
-using System.IdentityModel.Tokens.Jwt;
-using System.Linq.Expressions;
+﻿using Microsoft.Extensions.Logging;
 using WebApi.Core.Common.Global;
 using WebApi.Core.Common.Helper;
 using WebApi.Core.IRepository.Base;
@@ -14,9 +12,11 @@ namespace WebApi.Core.Service
     public class UserService : BaseService<User>, IUserService
     {
         private readonly IBaseRepository<User> _dal;
-        public UserService(IBaseRepository<User> baseDal) : base(baseDal)
+        private readonly ILogger<User> _log;
+        public UserService(IBaseRepository<User> baseDal, ILogger<User> log) : base(baseDal)
         {
             _dal = baseDal;
+            _log = log;
         }
         public async Task<MessageModel<bool>> Create(UserVM entity)
         {
@@ -41,6 +41,8 @@ namespace WebApi.Core.Service
             if (_user is null || _user.Count <= 0) return MessageModel<string>.Fail("登陆失败，请检查用户名和密码");
 
             var jwtStr = JwtHelper.IssueJwt(_user[0].UserId.ToString(), userName);
+
+            _log.LogInformation($"{DateTime.Now:yyyyMMdd:HHmmss}*****");
 
             return string.IsNullOrEmpty(jwtStr) ? MessageModel<string>.Fail("系统异常") : MessageModel<string>.Success("登陆成功", jwtStr);
         }

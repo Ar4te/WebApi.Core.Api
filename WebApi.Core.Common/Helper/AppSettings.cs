@@ -34,7 +34,9 @@ namespace WebApi.Core.Common.Helper
             try
             {
                 if (sections.Any())
+                {
                     return _configuration[string.Join(":", sections)];
+                }
             }
             catch (Exception ex)
             {
