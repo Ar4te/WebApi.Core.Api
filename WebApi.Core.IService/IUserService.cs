@@ -1,5 +1,4 @@
 ﻿using WebApi.Core.Common.Global;
-using WebApi.Core.IRepository.Base;
 using WebApi.Core.IService.Base;
 using WebApi.Core.Model;
 using WebApi.Core.ViewModel;

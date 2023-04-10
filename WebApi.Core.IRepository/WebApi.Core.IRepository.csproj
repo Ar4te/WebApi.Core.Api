@@ -11,4 +11,8 @@
     <ProjectReference Include="..\WebApi.Core.Model\WebApi.Core.Model.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Base\" />
+  </ItemGroup>
+
 </Project>

@@ -117,12 +117,8 @@ namespace WebApi.Core.Api
 
             app.MapControllers();
 
-            app.Run();
-        }
-        public class DDD
-        {
-            public string Name { get; set; }
-            public object Args { get; set; }
+            Log.Warning($"Api run in {AppSettings.app("Url")}");
+            app.Run(AppSettings.app("Url"));
         }
     }
 }

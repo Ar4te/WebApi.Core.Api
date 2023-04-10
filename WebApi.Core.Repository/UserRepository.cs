@@ -4,7 +4,7 @@ using WebApi.Core.Repository.Base;
 
 namespace WebApi.Core.Repository
 {
-    public class UserRepository : BaseRepository<User>, IUserRepository
+    public class UserRepository : BaseRepository<User>
     {
     }
 }

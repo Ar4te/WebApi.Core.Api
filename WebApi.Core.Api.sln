@@ -7,8 +7,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApi.Core.Api", "WebApi.C
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApi.Core.Common", "WebApi.Core.Common\WebApi.Core.Common.csproj", "{E6F78DD8-FC30-4699-B839-B082EF185A2E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApi.Core.IRepository", "WebApi.Core.IRepository\WebApi.Core.IRepository.csproj", "{DF5DF967-1140-421E-BB05-FE7AEF23A174}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApi.Core.IService", "WebApi.Core.IService\WebApi.Core.IService.csproj", "{2AC06A7A-9D6E-4920-8559-9C446C0FE369}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApi.Core.Model", "WebApi.Core.Model\WebApi.Core.Model.csproj", "{BAA49A46-C58C-4903-ACD4-68A283177C75}"
@@ -17,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApi.Core.Repository", "W
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApi.Core.Service", "WebApi.Core.Service\WebApi.Core.Service.csproj", "{068F62B2-08EC-4CBD-BD66-8CC8F221E681}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApi.Core.ViewModel", "WebApi.Core.ViewModel\WebApi.Core.ViewModel.csproj", "{25F9CC98-BB3F-4A44-8BCA-38178120B65B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApi.Core.ViewModel", "WebApi.Core.ViewModel\WebApi.Core.ViewModel.csproj", "{25F9CC98-BB3F-4A44-8BCA-38178120B65B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,10 +31,6 @@ Global
 		{E6F78DD8-FC30-4699-B839-B082EF185A2E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E6F78DD8-FC30-4699-B839-B082EF185A2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E6F78DD8-FC30-4699-B839-B082EF185A2E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DF5DF967-1140-421E-BB05-FE7AEF23A174}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DF5DF967-1140-421E-BB05-FE7AEF23A174}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DF5DF967-1140-421E-BB05-FE7AEF23A174}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DF5DF967-1140-421E-BB05-FE7AEF23A174}.Release|Any CPU.Build.0 = Release|Any CPU
 		{2AC06A7A-9D6E-4920-8559-9C446C0FE369}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{2AC06A7A-9D6E-4920-8559-9C446C0FE369}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2AC06A7A-9D6E-4920-8559-9C446C0FE369}.Release|Any CPU.ActiveCfg = Release|Any CPU
