@@ -1,25 +1,20 @@
-﻿using WebApi.Core.IRepository;
+﻿using WebApi.Core.IRepository.Base;
 using WebApi.Core.IService;
-using WebApi.Core.Repository;
+using WebApi.Core.Model;
+using WebApi.Core.Repository.UnitOfWork;
 
-namespace WebApi.Core.Service
+namespace WebApi.Core.Service;
+
+public class TestService : ITestService
 {
-    public class TestService : ITestService
+    private readonly IBaseRepository<Test> _dal;
+    public TestService(IBaseRepository<Test> dal)
     {
-        private readonly ITestRepository _test;
-        public TestService(ITestRepository test)
-        {
-            _test = test;
-        }
-
-        public string payType()
-        {
-            return "wechat";
-        }
-
-        public int sum(int x, int y)
-        {
-            return _test.sum(x, y);
-        }
+        _dal = dal;
+    }
+    public async Task<Test> CreateTest()
+    {
+        var res = await _dal.CreateNew(new Test { TestName = "arete234" });
+        return res;
     }
 }

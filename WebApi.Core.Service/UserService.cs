@@ -4,6 +4,7 @@ using WebApi.Core.Common.Helper;
 using WebApi.Core.IRepository.Base;
 using WebApi.Core.IService;
 using WebApi.Core.Model;
+using WebApi.Core.Repository.UnitOfWork;
 using WebApi.Core.Service.Base;
 using WebApi.Core.ViewModel;
 
@@ -13,17 +14,21 @@ namespace WebApi.Core.Service
     {
         private readonly IBaseRepository<User> _dal;
         private readonly ILogger<User> _log;
-        public UserService(IBaseRepository<User> baseDal, ILogger<User> log) : base(baseDal)
+        private readonly IUnitOfWorkManage _uow;
+        public UserService(IBaseRepository<User> baseDal, ILogger<User> log, IUnitOfWorkManage uow) : base(baseDal)
         {
             _dal = baseDal;
             _log = log;
+            _uow = uow;
         }
         public async Task<MessageModel<bool>> Create(UserVM entity)
         {
             var _user = await _dal.Query(r => r.UserName == entity.UserName);
             if (_user != null && _user.Any()) return MessageModel<bool>.Fail("用户名已被使用");
             entity.Password = MD5Helper.MD5Encrypt32(entity.Password);
+            _uow.BeginTran();
             var res = await _dal.Create(new User(entity));
+            _uow.RollbackTran();
             return res ? MessageModel<bool>.Success("操作成功", res) : MessageModel<bool>.Fail("操作失败");
         }
 

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using WebApi.Core.IService;
+using WebApi.Core.Model;
 using WebApi.Core.Service;
 
 namespace WebApi.Core.Api.Controllers
@@ -15,9 +16,9 @@ namespace WebApi.Core.Api.Controllers
         }
 
         [HttpPost]
-        public int Sum(int x, int y)
+        public async Task<Test> CreateNew()
         {
-            return _test.sum(x, y);
+            return await _test.CreateTest();
         }
     }
 }

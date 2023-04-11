@@ -1,12 +1,13 @@
-﻿using WebApi.Core.IRepository;
+﻿using WebApi.Core.Model;
+using WebApi.Core.Repository.Base;
+using WebApi.Core.Repository.UnitOfWork;
 
 namespace WebApi.Core.Repository
 {
-    public class TestRepository : ITestRepository
+    public class TestRepository : BaseRepository<Test>
     {
-        public int sum(int x, int y)
+        public TestRepository(IUnitOfWorkManage unitOfWork) : base(unitOfWork)
         {
-            return x + y;
         }
     }
 }

@@ -47,6 +47,10 @@ namespace WebApi.Core.Api
                 .UseSerilog();
             #endregion
 
+            builder.Services.AddSqlSugarSetup();
+            builder.Services.AdddBSetup();
+            builder.Services.AddHostedService<SeedDataHostedService>();
+
             #region
             //builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(o =>
             //{

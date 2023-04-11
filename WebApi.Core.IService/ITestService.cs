@@ -1,8 +1,8 @@
-﻿namespace WebApi.Core.IService
+﻿using WebApi.Core.Model;
+
+namespace WebApi.Core.IService;
+
+public interface ITestService
 {
-    public interface ITestService
-    {
-        int sum(int x, int y);
-        string payType();
-    }
+    Task<Test> CreateTest();
 }
