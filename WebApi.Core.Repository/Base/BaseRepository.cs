@@ -7,7 +7,7 @@ namespace WebApi.Core.Repository.Base;
 
 public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : class, new()
 {
-    private ISqlSugarClient _db;
+    private SqlSugarScope _db;
     private readonly IUnitOfWorkManage _unitOfWork;
     public BaseRepository(IUnitOfWorkManage unitOfWork)
     {

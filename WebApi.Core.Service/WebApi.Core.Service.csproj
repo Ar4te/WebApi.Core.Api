@@ -7,7 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\WebApi.Core.IRepository\WebApi.Core.IRepository.csproj" />
     <ProjectReference Include="..\WebApi.Core.IService\WebApi.Core.IService.csproj" />
     <ProjectReference Include="..\WebApi.Core.Repository\WebApi.Core.Repository.csproj" />
   </ItemGroup>

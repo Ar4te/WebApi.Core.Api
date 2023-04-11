@@ -18,7 +18,7 @@ public class DBSeed
             var path = AppDomain.CurrentDomain.RelativeSearchPath ?? AppDomain.CurrentDomain.BaseDirectory;
             var referencedAssemblies = Directory.GetFiles(path, "WebApi.Core.Model.dll").Select(Assembly.LoadFrom).ToArray();
             var dbStr = BaseDBConfig.ConnectionString;
-            cCtx._db.ChangeDatabase(CustomContext.connId.ToLower());
+            cCtx._db.ChangeDatabase(CustomContext.connId);
             var db = cCtx._db;
             if (db.CurrentConnectionConfig.DbType != (DbType)DataBaseType.Oracle)
             {
