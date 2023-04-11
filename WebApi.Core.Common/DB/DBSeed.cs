@@ -33,7 +33,7 @@ public class DBSeed
             }
 
             // 创建数据库表
-            string _namespace = "WebApi.Core.Model";
+            string _namespace = "WebApi.Core.Model.Models";
             Console.WriteLine($"ConnId: {CustomContext.connId} Create Tables...", ConsoleColor.Yellow);
             var modelTypes = referencedAssemblies
                 .SelectMany(a => a.DefinedTypes)
