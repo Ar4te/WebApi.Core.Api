@@ -85,12 +85,12 @@ public class FrameSeed
     {
         if (string.IsNullOrEmpty(webRootPath))
         {
-            Create_IServices_ClassFileByDBTalbe(sqlSugarClient, ConnId, $@"C:\my-file\WebApi.Core.IServices", "WebApi.Core.IServices", tableNames, "", isMuti);
+            Create_IServices_ClassFileByDBTalbe(sqlSugarClient, ConnId, $@"C:\my-file\WebApi.Core.IService", "WebApi.Core.IService", tableNames, "", isMuti);
         }
         else
         {
-            webRootPath = webRootPath.Replace("WebApi.Core.Api", "WebApi.Core.IServices");
-            Create_IServices_ClassFileByDBTalbe(sqlSugarClient, ConnId, $@"{webRootPath}", "WebApi.Core.IServices", tableNames, "", isMuti);
+            webRootPath = webRootPath.Replace("WebApi.Core.Api", "WebApi.Core.IService");
+            Create_IServices_ClassFileByDBTalbe(sqlSugarClient, ConnId, $@"{webRootPath}", "WebApi.Core.IService", tableNames, "", isMuti);
         }
         return true;
     }
@@ -325,7 +325,7 @@ namespace " + strNameSpace + @"
         var ls = IDbFirst.IsCreateDefaultValue().IsCreateAttribute()
 
              .SettingClassTemplate(p => p =
-@"using WebApi.Core.IServices;
+@"using WebApi.Core.IService;
 using WebApi.Core.Model;
 using WebApi.Core.Model.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -343,9 +343,9 @@ namespace " + strNameSpace + @"
             /// <summary>
             /// 服务器接口，因为是模板生成，所以首字母是大写的，自己可以重构下
             /// </summary>
-            private readonly I{ClassName}Services _{ClassName}Services;
+            private readonly I{ClassName}Service _{ClassName}Services;
     
-            public {ClassName}Controller(I{ClassName}Services {ClassName}Services)
+            public {ClassName}Controller(I{ClassName}Service {ClassName}Services)
             {
                 _{ClassName}Services = {ClassName}Services;
             }
@@ -396,7 +396,10 @@ namespace " + strNameSpace + @"
             strPath = strPath + @"\Models\" + ConnId;
             strNameSpace = strNameSpace + "." + ConnId;
         }
-
+        else
+        {
+            strPath += @"\Models\";
+        }
         var IDbFirst = sqlSugarClient.DbFirst;
         if (lstTableNames != null && lstTableNames.Length > 0)
         {
@@ -524,15 +527,15 @@ namespace " + strNameSpace + @"
         var ls = IDbFirst.IsCreateDefaultValue().IsCreateAttribute()
 
               .SettingClassTemplate(p => p =
-@"using WebApi.Core.IServices.BASE;
+@"using WebApi.Core.IService.Base;
 using WebApi.Core.Model.Models" + (isMuti ? "." + ConnId + "" : "") + @";
 
 namespace " + strNameSpace + @"
 {	
 	/// <summary>
-	/// I{ClassName}Services
+	/// I{ClassName}Service
 	/// </summary>	
-    public interface I{ClassName}Services :IBaseServices<{ClassName}>" + (string.IsNullOrEmpty(strInterface) ? "" : (" , " + strInterface)) + @"
+    public interface I{ClassName}Service :IBaseService<{ClassName}>" + (string.IsNullOrEmpty(strInterface) ? "" : (" , " + strInterface)) + @"
 	{
     }
 }")
@@ -581,43 +584,18 @@ namespace " + strNameSpace + @"
         var ls = IDbFirst.IsCreateDefaultValue().IsCreateAttribute()
 
               .SettingClassTemplate(p => p =
-@"using WebApi.Core.IRepository" + (isMuti ? "." + ConnId + "" : "") + @";
-using MES.Core.IRepository.UnitOfWork;
-using MES.Core.Model.Models" + (isMuti ? "." + ConnId + "" : "") + @";
-using WebApi.Core.Repository.Base;
-
-namespace " + strNameSpace + @"
-{
-	/// <summary>
-	/// {ClassName}Repository
-	/// </summary>
-    public class {ClassName}Repository : BaseRepository<{ClassName}>, I{ClassName}Repository" + (string.IsNullOrEmpty(strInterface) ? "" : (" , " + strInterface)) + @"
-    {
-        public {ClassName}Repository(IUnitOfWork unitOfWork) : base(unitOfWork)
-        {
-        }
-    }
-}
-using WebApi.Core.Model.Models;
+@"using WebApi.Core.Model.Models" + (isMuti ? "." + ConnId + "" : "") + @";
 using WebApi.Core.Repository.Base;
 using WebApi.Core.Repository.UnitOfWork;
 
-namespace +'{ strNameSpace}' +@ ;
+namespace " + strNameSpace + ";" + @"
 
-public class UserRepository : BaseRepository<User>
+public class {ClassName}Repository : BaseRepository<{ClassName}>
 {
-    public UserRepository(IUnitOfWorkManage unitOfWork) : base(unitOfWork)
+    public {ClassName}Repository(IUnitOfWorkManage unitOfWork) : base(unitOfWork)
     {
     }
-}
-
-
-
-
-
-
-
-")
+}")
               .ToClassStringList(strNameSpace);
 
 
@@ -664,7 +642,7 @@ public class UserRepository : BaseRepository<User>
 
               .SettingClassTemplate(p => p =
 @"
-using WebApi.Core.IServices" + (isMuti ? "." + ConnId + "" : "") + @";
+using WebApi.Core.IService" + (isMuti ? "." + ConnId + "" : "") + @";
 using WebApi.Core.Model.Models" + (isMuti ? "." + ConnId + "" : "") + @";
 using WebApi.Core.Services.BASE;
 using WebApi.Core.IRepository.Base;

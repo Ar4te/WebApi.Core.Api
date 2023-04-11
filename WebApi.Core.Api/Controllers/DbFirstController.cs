@@ -28,9 +28,9 @@ namespace WebApi.Core.Api.Controllers
         }
 
         [HttpPost]
-        public MessageModel<string> CreateFileByDBEntities([FromBody] string[] tableNames, [FromQuery] string ConnId = null)
+        public MessageModel<string> CreateFileByDBEntities([FromBody] string[] tableNames, [FromQuery] string ConnId = "WebApi")
         {
-            ConnId = ConnId ?? CustomContext.connId;
+            ConnId ??= CustomContext.connId;
             string webRootPath = Env.ContentRootPath;
             string msg = "";
             if (Env.IsDevelopment())
@@ -45,7 +45,7 @@ namespace WebApi.Core.Api.Controllers
 
 
 
-            return MessageModel<string>.Success("");
+            return MessageModel<string>.Success("", msg);
         }
     }
 }
