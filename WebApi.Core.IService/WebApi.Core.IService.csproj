@@ -10,7 +10,6 @@
     <ProjectReference Include="..\WebApi.Core.Common\WebApi.Core.Common.csproj" />
     <ProjectReference Include="..\WebApi.Core.IRepository\WebApi.Core.IRepository.csproj" />
     <ProjectReference Include="..\WebApi.Core.Model\WebApi.Core.Model.csproj" />
-    <ProjectReference Include="..\WebApi.Core.ViewModel\WebApi.Core.ViewModel.csproj" />
   </ItemGroup>
 
 </Project>

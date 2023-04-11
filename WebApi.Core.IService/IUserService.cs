@@ -1,7 +1,7 @@
 ﻿using WebApi.Core.Common.Global;
 using WebApi.Core.IService.Base;
-using WebApi.Core.Model;
-using WebApi.Core.ViewModel;
+using WebApi.Core.Model.Models;
+using WebApi.Core.Model.ViewModels;
 
 namespace WebApi.Core.IService
 {

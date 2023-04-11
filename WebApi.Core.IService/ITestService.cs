@@ -1,4 +1,4 @@
-﻿using WebApi.Core.Model;
+﻿using WebApi.Core.Model.Models;
 
 namespace WebApi.Core.IService;
 

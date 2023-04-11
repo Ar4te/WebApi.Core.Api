@@ -1,4 +1,4 @@
-﻿using WebApi.Core.Model;
+﻿using WebApi.Core.Model.Models;
 using WebApi.Core.Repository.Base;
 using WebApi.Core.Repository.UnitOfWork;
 

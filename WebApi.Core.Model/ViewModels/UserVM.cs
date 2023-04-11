@@ -1,4 +1,4 @@
-﻿namespace WebApi.Core.ViewModel
+﻿namespace WebApi.Core.Model.ViewModels
 {
     public class UserVM
     {

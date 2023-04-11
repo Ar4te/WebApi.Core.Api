@@ -2,102 +2,101 @@
 using System.Linq.Expressions;
 using WebApi.Core.Common.Global;
 
-namespace WebApi.Core.IRepository.Base
+namespace WebApi.Core.Repository.Base;
+
+public interface IBaseRepository<TEntity> where TEntity : class
 {
-    public interface IBaseRepository<TEntity> where TEntity : class
-    {
-        #region Create
-        /// <summary>
-        /// 返回是否插入成功
-        /// </summary>
-        /// <param name="entity"></param>
-        /// <returns></returns>
-        Task<bool> Create(TEntity entity);
+    #region Create
+    /// <summary>
+    /// 返回是否插入成功
+    /// </summary>
+    /// <param name="entity"></param>
+    /// <returns></returns>
+    Task<bool> Create(TEntity entity);
 
-        /// <summary>
-        /// 返回插入后的完整实体
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        Task<TEntity> CreateNew(TEntity entity);
+    /// <summary>
+    /// 返回插入后的完整实体
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    Task<TEntity> CreateNew(TEntity entity);
 
-        /// <summary>
-        /// 批量插入，返回受影响的行数
-        /// </summary>
-        /// <param name="entities"></param>
-        /// <returns></returns>
-        Task<int> Create(List<TEntity> entities);
-        #endregion
+    /// <summary>
+    /// 批量插入，返回受影响的行数
+    /// </summary>
+    /// <param name="entities"></param>
+    /// <returns></returns>
+    Task<int> Create(List<TEntity> entities);
+    #endregion
 
-        #region Query
-        /// <summary>
-        /// 通过ID查询
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        Task<TEntity> QueryById(object id);
+    #region Query
+    /// <summary>
+    /// 通过ID查询
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    Task<TEntity> QueryById(object id);
 
-        /// <summary>
-        /// 查询全部
-        /// </summary>
-        /// <returns></returns>
-        Task<List<TEntity>> Query();
+    /// <summary>
+    /// 查询全部
+    /// </summary>
+    /// <returns></returns>
+    Task<List<TEntity>> Query();
 
-        /// <summary>
-        /// 通过lambda语句查询
-        /// </summary>
-        /// <param name="expression"></param>
-        /// <returns></returns>
-        Task<List<TEntity>> Query(Expression<Func<TEntity, bool>> expression);
+    /// <summary>
+    /// 通过lambda语句查询
+    /// </summary>
+    /// <param name="expression"></param>
+    /// <returns></returns>
+    Task<List<TEntity>> Query(Expression<Func<TEntity, bool>> expression);
 
-        /// <summary>
-        /// 原生SQL查询
-        /// </summary>
-        /// <param name="sql"></param>
-        /// <param name="parameters"></param>
-        /// <returns></returns>
-        Task<List<TEntity>> QuerySql(string sql, SugarParameter[] parameters = null);
+    /// <summary>
+    /// 原生SQL查询
+    /// </summary>
+    /// <param name="sql"></param>
+    /// <param name="parameters"></param>
+    /// <returns></returns>
+    Task<List<TEntity>> QuerySql(string sql, SugarParameter[] parameters = null);
 
-        /// <summary>
-        /// Sql语句分页查询
-        /// </summary>
-        /// <param name="querySqlStr"></param>
-        /// <param name="pageIndex"></param>
-        /// <param name="pageSize"></param>
-        /// <param name="countSqlStr"></param>
-        /// <param name="strOrderByField"></param>
-        /// <param name="parameters"></param>
-        /// <returns></returns>
-        Task<PageModel<TEntity>> QuerySqlPage(string querySqlStr, int pageIndex, int pageSize, string countSqlStr = "", string strOrderByField = "", SugarParameter[] parameters = null);
+    /// <summary>
+    /// Sql语句分页查询
+    /// </summary>
+    /// <param name="querySqlStr"></param>
+    /// <param name="pageIndex"></param>
+    /// <param name="pageSize"></param>
+    /// <param name="countSqlStr"></param>
+    /// <param name="strOrderByField"></param>
+    /// <param name="parameters"></param>
+    /// <returns></returns>
+    Task<PageModel<TEntity>> QuerySqlPage(string querySqlStr, int pageIndex, int pageSize, string countSqlStr = "", string strOrderByField = "", SugarParameter[] parameters = null);
 
-        #endregion
+    #endregion
 
-        #region Update
-        Task<bool> Update(TEntity entity);
+    #region Update
+    Task<bool> Update(TEntity entity);
 
-        #endregion
+    #endregion
 
-        #region Delete
-        Task<bool> DeleteByIds(object[] ids);
+    #region Delete
+    Task<bool> DeleteByIds(object[] ids);
 
-        #endregion
+    #endregion
 
-        #region NoGroup
-        /// <summary>
-        /// 同时实体从A转移到B
-        /// </summary>
-        /// <typeparam name="TEntity"></typeparam>
-        /// <param name="entity"></param>
-        /// <param name="tableName"></param>
-        /// <returns></returns>
-        Task<int> InsertA2B<TEntity>(List<TEntity> entity, string tableName) where TEntity : class, new();
+    #region NoGroup
+    /// <summary>
+    /// 同时实体从A转移到B
+    /// </summary>
+    /// <typeparam name="TEntity"></typeparam>
+    /// <param name="entity"></param>
+    /// <param name="tableName"></param>
+    /// <returns></returns>
+    Task<int> InsertA2B<TEntity>(List<TEntity> entity, string tableName) where TEntity : class, new();
 
-        /// <summary>
-        /// 执行增删改SQL语句
-        /// </summary>
-        /// <param name="sql"></param>
-        /// <returns></returns>
-        Task<int> ExecuteSql(string sql);
-        #endregion
-    }
+    /// <summary>
+    /// 执行增删改SQL语句
+    /// </summary>
+    /// <param name="sql"></param>
+    /// <returns></returns>
+    Task<int> ExecuteSql(string sql);
+    #endregion
 }

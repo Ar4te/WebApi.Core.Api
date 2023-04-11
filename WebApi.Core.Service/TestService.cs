@@ -1,7 +1,6 @@
-﻿using WebApi.Core.IRepository.Base;
-using WebApi.Core.IService;
-using WebApi.Core.Model;
-using WebApi.Core.Repository.UnitOfWork;
+﻿using WebApi.Core.IService;
+using WebApi.Core.Model.Models;
+using WebApi.Core.Repository.Base;
 
 namespace WebApi.Core.Service;
 

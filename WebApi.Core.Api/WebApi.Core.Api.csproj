@@ -19,7 +19,6 @@
     <ProjectReference Include="..\WebApi.Core.Common\WebApi.Core.Common.csproj" />
     <ProjectReference Include="..\WebApi.Core.IService\WebApi.Core.IService.csproj" />
     <ProjectReference Include="..\WebApi.Core.Service\WebApi.Core.Service.csproj" />
-    <ProjectReference Include="..\WebApi.Core.ViewModel\WebApi.Core.ViewModel.csproj" />
   </ItemGroup>
 
 </Project>

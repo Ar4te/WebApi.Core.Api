@@ -1,7 +1,6 @@
 ﻿using SqlSugar;
 using System.Linq.Expressions;
 using WebApi.Core.Common.Global;
-using WebApi.Core.IRepository.Base;
 using WebApi.Core.Repository.UnitOfWork;
 
 namespace WebApi.Core.Repository.Base;

@@ -1,6 +1,6 @@
 ﻿using SqlSugar;
 
-namespace WebApi.Core.Model;
+namespace WebApi.Core.Model.Models;
 
 [SugarTable("Test2")]
 public class Test2
