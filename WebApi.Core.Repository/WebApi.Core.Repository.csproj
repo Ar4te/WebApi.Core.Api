@@ -15,4 +15,8 @@
     <ProjectReference Include="..\WebApi.Core.Model\WebApi.Core.Model.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Repository\" />
+  </ItemGroup>
+
 </Project>

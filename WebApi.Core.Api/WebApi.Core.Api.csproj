@@ -21,4 +21,8 @@
     <ProjectReference Include="..\WebApi.Core.Service\WebApi.Core.Service.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Controllers\WebApi\" />
+  </ItemGroup>
+
 </Project>

@@ -133,12 +133,12 @@ public class FrameSeed
     {
         if (string.IsNullOrEmpty(webRootPath))
         {
-            Create_Services_ClassFileByDBTalbe(sqlSugarClient, ConnId, $@"C:\my-file\WebApi.Core.Services", "WebApi.Core.Services", tableNames, "", isMuti);
+            Create_Services_ClassFileByDBTalbe(sqlSugarClient, ConnId, $@"C:\my-file\WebApi.Core.Service", "WebApi.Core.Service", tableNames, "", isMuti);
         }
         else
         {
-            webRootPath = webRootPath.Replace("WebApi.Core.Api", "WebApi.Core.Services");
-            Create_Services_ClassFileByDBTalbe(sqlSugarClient, ConnId, $@"{webRootPath}", "WebApi.Core.Services", tableNames, "", isMuti);
+            webRootPath = webRootPath.Replace("WebApi.Core.Api", "WebApi.Core.Service");
+            Create_Services_ClassFileByDBTalbe(sqlSugarClient, ConnId, $@"{webRootPath}", "WebApi.Core.Service", tableNames, "", isMuti);
         }
         return true;
     }
@@ -326,13 +326,9 @@ namespace " + strNameSpace + @"
 
              .SettingClassTemplate(p => p =
 @"using WebApi.Core.IService;
-using WebApi.Core.Model;
 using WebApi.Core.Model.Models;
-using Microsoft.AspNetCore.Authorization;
+using WebApi.Core.Common.Global;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Linq.Expressions;
-using System.Threading.Tasks;
 
 namespace " + strNameSpace + @"
 {
@@ -644,24 +640,24 @@ public class {ClassName}Repository : BaseRepository<{ClassName}>
 @"
 using WebApi.Core.IService" + (isMuti ? "." + ConnId + "" : "") + @";
 using WebApi.Core.Model.Models" + (isMuti ? "." + ConnId + "" : "") + @";
-using WebApi.Core.Services.BASE;
-using WebApi.Core.IRepository.Base;
+using WebApi.Core.Repository.Base;
+using WebApi.Core.Service.Base;
 
 namespace " + strNameSpace + @"
 {
-    public class {ClassName}Services : BaseServices<{ClassName}>, I{ClassName}Services" + (string.IsNullOrEmpty(strInterface) ? "" : (" , " + strInterface)) + @"
+    public class {ClassName}Service : BaseService<{ClassName}>, I{ClassName}Service" + (string.IsNullOrEmpty(strInterface) ? "" : (" , " + strInterface)) + @"
     {
         private readonly IBaseRepository<{ClassName}> _dal;
-        public {ClassName}Services(IBaseRepository<{ClassName}> dal)
+        public {ClassName}Service(IBaseRepository<{ClassName}> dal):base(dal)
         {
-            this._dal = dal;
+            _dal = dal;
             base.BaseDal = dal;
         }
     }
 }")
               .ToClassStringList(strNameSpace);
 
-        CreateFilesByClassStringList(ls, strPath, "{0}Services");
+        CreateFilesByClassStringList(ls, strPath, "{0}Service");
     }
     #endregion
 
