@@ -11,7 +11,6 @@ public interface ICache
     /// <param name="expireTime"></param>
     /// <returns></returns>
     bool SetCache<T>(string key, T value, DateTime? expireTime = null);
-
     /// <summary>
     /// 获取缓存
     /// </summary>
@@ -19,28 +18,24 @@ public interface ICache
     /// <param name="key"></param>
     /// <returns></returns>
     T GetCache<T>(string key);
-
     /// <summary>
     /// 根据键精准删除
     /// </summary>
     /// <param name="key"></param>
     /// <returns></returns>
     bool RemoveCache(string key);
-
     /// <summary>
     /// 左侧匹配，右侧模糊
     /// </summary>
     /// <param name="keywords"></param>
     /// <returns></returns>
     Task RemoveKeysLeftLike(string keywords);
-
     /// <summary>
     /// 获取自增Id
     /// </summary>
     /// <param name="key"></param>
     /// <returns></returns>
     long GetIncr(string key);
-
     /// <summary>
     /// 获取自增Id
     /// </summary>
@@ -48,7 +43,6 @@ public interface ICache
     /// <param name="expiresTime"></param>
     /// <returns></returns>
     long GetIncr(string key, TimeSpan expiresTime);
-
     int SetHashFieldCache<T>(string key, string fieldKey, T fieldValue);
     int SetHashFieldCache<T>(string key, Dictionary<string, T> dict);
     T GetHashFieldCache<T>(string key, string fieldKey);
